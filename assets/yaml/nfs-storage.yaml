@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-storage
+provisioner: nfs-client    #动态卷分配服务指定的名称
+parameters:
+  archiveOnDelete: "true"  #设置为"false"时删除PVC不会保留数据,"true"则保留数据
+mountOptions:
+  - hard                   #指定为硬挂载方式
+  - nfsvers=4              #指定NFS版本

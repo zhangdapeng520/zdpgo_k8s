@@ -12,6 +12,7 @@ type K8S struct {
 	log         *zdpgo_log.Log // 日志对象
 	logFilePath string         // 日志文件路径
 	debug       bool           // 是否为debug模式
+	config      K8SConfig      // k8s配置
 }
 
 // k8s配置结构体
@@ -58,6 +59,7 @@ func New(config K8SConfig) *K8S {
 	ssh.Connect()
 	k.ssh = ssh
 
+	k.config = config
 	return &k
 }
 
