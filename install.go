@@ -19,7 +19,7 @@ func (k *K8S) InstallStorageClass() (string, error) {
 	k.ssh.UploadFile(localFilePath, remoteDirPath)
 
 	// 执行部署命令
-	result, err := k.ssh.Sudo(fmt.Sprintf("kubectl apply -f nfs-storage.yaml"))
+	result, err := k.ssh.Sudo("kubectl apply -f nfs-storage.yaml")
 	return result, err
 }
 
@@ -37,7 +37,7 @@ func (k *K8S) InstallZookeeper() (string, error) {
 	k.ssh.UploadFile(localFilePath, remoteDirPath)
 
 	// 执行部署命令
-	result, err := k.ssh.Sudo(fmt.Sprintf("kubectl apply -f zookeeper.yaml -n kafka"))
+	result, err := k.ssh.Sudo("kubectl apply -f zookeeper.yaml -n kafka")
 	return result, err
 }
 
@@ -55,7 +55,7 @@ func (k *K8S) InstallKafka() (string, error) {
 	k.ssh.UploadFile(localFilePath, remoteDirPath)
 
 	// 执行部署命令
-	result, err := k.ssh.Sudo(fmt.Sprintf("kubectl apply -f kafka.yaml -n kafka"))
+	result, err := k.ssh.Sudo("kubectl apply -f kafka.yaml -n kafka")
 	return result, err
 }
 
@@ -73,6 +73,6 @@ func (k *K8S) InstallKafkaManager() (string, error) {
 	k.ssh.UploadFile(localFilePath, remoteDirPath)
 
 	// 执行部署命令
-	result, err := k.ssh.Sudo(fmt.Sprintf("kubectl apply -f kafka-manager.yaml -n kafka"))
+	result, err := k.ssh.Sudo("kubectl apply -f kafka-manager.yaml -n kafka")
 	return result, err
 }

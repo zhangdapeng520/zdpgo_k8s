@@ -1,9 +1,10 @@
 package zdpgo_k8s
 
 import (
+	"strings"
+
 	"github.com/zhangdapeng520/zdpgo_log"
 	"github.com/zhangdapeng520/zdpgo_ssh"
-	"strings"
 )
 
 // k8s核心结构体
@@ -35,8 +36,8 @@ func New(config K8SConfig) *K8S {
 		k.logFilePath = config.LogFilePath
 	}
 	logConfig := zdpgo_log.LogConfig{
-		Debug:       config.Debug,
-		LogFilePath: k.logFilePath,
+		Debug: config.Debug,
+		Path:  k.logFilePath,
 	}
 	k.log = zdpgo_log.New(logConfig)
 
@@ -67,8 +68,8 @@ func New(config K8SConfig) *K8S {
 func (k *K8S) SetDebug(debug bool) {
 	k.debug = debug
 	logConfig := zdpgo_log.LogConfig{
-		Debug:       debug,
-		LogFilePath: k.logFilePath,
+		Debug: debug,
+		Path:  k.logFilePath,
 	}
 	k.log = zdpgo_log.New(logConfig)
 }

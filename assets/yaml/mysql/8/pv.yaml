@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: model-db-pv
+spec:
+  storageClassName: ml-pv1
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 5Gi
+  hostPath:
+    path: /home/work/share/model-db
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem

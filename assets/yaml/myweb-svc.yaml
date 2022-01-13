@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myweb
+spec:
+  type: NodePort # 开启外网访问
+  ports:
+    - port: 8080
+      nodePort: 30001 # 外网访问端口
+  selector:
+    app: myweb
+
