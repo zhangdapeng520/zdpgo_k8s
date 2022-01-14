@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"path/filepath"
+	"strings"
 )
 
 // CreateRC 执行kubectl create -f xxx.yaml命令
@@ -30,6 +31,17 @@ func (k *K8S) create(fileName string) (string, error) {
 	if err != nil {
 		k.log.Error("创建RC失败：", err)
 	}
+
+	// 执行删除命令
+	go func(path string) {
+		if strings.HasSuffix(path, ".yaml") || strings.HasSuffix(path, ".yml") {
+			command := fmt.Sprintf("rm -rf %s", remoteDirPath)
+			result, err = k.ssh.Sudo(command)
+			k.log.Info(command)
+			k.log.Info("删除远程配置文件成功：", result, err)
+		}
+	}(remoteDirPath)
+
 	return result, err
 }
 

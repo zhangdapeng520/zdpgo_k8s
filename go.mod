@@ -16,3 +16,7 @@ require (
 	golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
+
+replace (
+	 zdpgo_ssh v1.0.2 => ../zdpgo_ssh // 重定向到本地，稳定以后再打版本更新
+)
