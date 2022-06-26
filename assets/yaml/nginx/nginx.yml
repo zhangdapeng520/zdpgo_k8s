@@ -1,0 +1,27 @@
+# 部署命令：kubectl apply -f nginx.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: default
+spec:
+  replicas: 3 # 创建多少个Pod
+  selector: # 选择器配置
+    matchLabels:
+      app: mynginx
+      release: stable
+      env: test
+  template:
+    metadata: # 元数据配置
+      labels:
+        app: mynginx
+        release: stable
+        env: test
+    spec:
+      containers: # 容器相关配置
+        - name: my-nginx
+          image: nginx:v1
+          imagePullPolicy: IfNotPresent # 如果不存在镜像，则下载
+          ports:
+            - name: http
+              containerPort: 80 # 容器端口

@@ -1,0 +1,14 @@
+apiVersion: v1 # 版本
+kind: Service # 资源类型
+metadata: # 元数据
+  name: myweb
+  namespace: default
+spec:
+  type: ClusterIP
+  selector: # 选择器，必须和Pod匹配
+    app: myapp
+    release: stabel
+  ports: # 端口
+    - name: http
+      port: 80
+      targetPort: 80

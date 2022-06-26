@@ -25,26 +25,26 @@ func init() {
 func (k *K8S) UploadInstallDockerOnCentos() {
 
 	if !k.IsHealth() {
-		k.log.Panic("无法成功连接到指定的服务器，请检查后重试。")
+		k.Log.Panic("无法成功连接到指定的服务器，请检查后重试。")
 		return
 	}
 
 	// 上传安装脚本
 	localFilePath := fmt.Sprintf("%s/assets/shell/centos/install_docker.sh", currentPath)
-	remoteDirPath := fmt.Sprintf("/home/%s", k.config.Username)
-	k.ssh.UploadFile(localFilePath, remoteDirPath)
+	remoteDirPath := fmt.Sprintf("/home/%s", k.Config.Ssh.Username)
+	k.Ssh.UploadFile(localFilePath, remoteDirPath)
 }
 
 // 上传k8s Flannel配置文件
 func (k *K8S) UploadFlannelConfig() {
 
 	if !k.IsHealth() {
-		k.log.Panic("无法成功连接到指定的服务器，请检查后重试。")
+		k.Log.Panic("无法成功连接到指定的服务器，请检查后重试。")
 		return
 	}
 
 	// 上传安装脚本
 	localFilePath := fmt.Sprintf("%s/assets/yaml/kube-flannel.yml", currentPath)
-	remoteDirPath := fmt.Sprintf("/home/%s", k.config.Username)
-	k.ssh.UploadFile(localFilePath, remoteDirPath)
+	remoteDirPath := fmt.Sprintf("/home/%s", k.Config.Ssh.Username)
+	k.Ssh.UploadFile(localFilePath, remoteDirPath)
 }

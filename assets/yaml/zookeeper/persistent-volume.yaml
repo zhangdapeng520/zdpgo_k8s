@@ -1,0 +1,55 @@
+#Zookeeper集群需要用到存储，这里需要准备持久卷（PersistentVolume，简称PV）
+#我这里以yaml文件创建3个PV，供待会儿3个Zookeeper节点创建出来的持久卷声明（PersistentVolumeClaim，简称PVC）绑定。
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: k8s-pv-zk1
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "anything"
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 3Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/var/lib/zookeeper"
+  persistentVolumeReclaimPolicy: Recycle
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: k8s-pv-zk2
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "anything"
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 3Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/var/lib/zookeeper"
+  persistentVolumeReclaimPolicy: Recycle
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: k8s-pv-zk3
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "anything"
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 3Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/var/lib/zookeeper"
+  persistentVolumeReclaimPolicy: Recycle
+
+# 创建命令：kubectl create -f persistent-volume.yaml
+# 查看PV：kubectl get pv -o wide

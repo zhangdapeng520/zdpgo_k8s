@@ -9,17 +9,17 @@ import (
 func (k *K8S) InstallStorageClass() (string, error) {
 
 	if !k.IsHealth() {
-		k.log.Panic("无法成功连接到指定的服务器，请检查后重试。")
+		k.Log.Panic("无法成功连接到指定的服务器，请检查后重试。")
 		return "", errors.New("服务器无法连接")
 	}
 
 	// 上传安装脚本
 	localFilePath := fmt.Sprintf("%s/assets/yaml/nfs-storage.yaml", currentPath)
-	remoteDirPath := fmt.Sprintf("/home/%s", k.config.Username)
-	k.ssh.UploadFile(localFilePath, remoteDirPath)
+	remoteDirPath := fmt.Sprintf("/home/%s", k.Config.Ssh.Username)
+	k.Ssh.UploadFile(localFilePath, remoteDirPath)
 
 	// 执行部署命令
-	result, err := k.ssh.Sudo("kubectl apply -f nfs-storage.yaml")
+	result, err := k.Ssh.Sudo("kubectl apply -f nfs-storage.yaml")
 	return result, err
 }
 
@@ -27,17 +27,17 @@ func (k *K8S) InstallStorageClass() (string, error) {
 func (k *K8S) InstallZookeeper() (string, error) {
 
 	if !k.IsHealth() {
-		k.log.Panic("无法成功连接到指定的服务器，请检查后重试。")
+		k.Log.Panic("无法成功连接到指定的服务器，请检查后重试。")
 		return "", errors.New("服务器无法连接")
 	}
 
 	// 上传安装脚本
 	localFilePath := fmt.Sprintf("%s/assets/yaml/zookeeper.yaml", currentPath)
-	remoteDirPath := fmt.Sprintf("/home/%s", k.config.Username)
-	k.ssh.UploadFile(localFilePath, remoteDirPath)
+	remoteDirPath := fmt.Sprintf("/home/%s", k.Config.Ssh.Username)
+	k.Ssh.UploadFile(localFilePath, remoteDirPath)
 
 	// 执行部署命令
-	result, err := k.ssh.Sudo("kubectl apply -f zookeeper.yaml -n kafka")
+	result, err := k.Ssh.Sudo("kubectl apply -f zookeeper.yaml -n kafka")
 	return result, err
 }
 
@@ -45,17 +45,17 @@ func (k *K8S) InstallZookeeper() (string, error) {
 func (k *K8S) InstallKafka() (string, error) {
 
 	if !k.IsHealth() {
-		k.log.Panic("无法成功连接到指定的服务器，请检查后重试。")
+		k.Log.Panic("无法成功连接到指定的服务器，请检查后重试。")
 		return "", errors.New("服务器无法连接")
 	}
 
 	// 上传安装脚本
 	localFilePath := fmt.Sprintf("%s/assets/yaml/kafka.yaml", currentPath)
-	remoteDirPath := fmt.Sprintf("/home/%s", k.config.Username)
-	k.ssh.UploadFile(localFilePath, remoteDirPath)
+	remoteDirPath := fmt.Sprintf("/home/%s", k.Config.Ssh.Username)
+	k.Ssh.UploadFile(localFilePath, remoteDirPath)
 
 	// 执行部署命令
-	result, err := k.ssh.Sudo("kubectl apply -f kafka.yaml -n kafka")
+	result, err := k.Ssh.Sudo("kubectl apply -f kafka.yaml -n kafka")
 	return result, err
 }
 
@@ -63,16 +63,16 @@ func (k *K8S) InstallKafka() (string, error) {
 func (k *K8S) InstallKafkaManager() (string, error) {
 
 	if !k.IsHealth() {
-		k.log.Panic("无法成功连接到指定的服务器，请检查后重试。")
+		k.Log.Panic("无法成功连接到指定的服务器，请检查后重试。")
 		return "", errors.New("服务器无法连接")
 	}
 
 	// 上传安装脚本
 	localFilePath := fmt.Sprintf("%s/assets/yaml/kafka-manager.yaml", currentPath)
-	remoteDirPath := fmt.Sprintf("/home/%s", k.config.Username)
-	k.ssh.UploadFile(localFilePath, remoteDirPath)
+	remoteDirPath := fmt.Sprintf("/home/%s", k.Config.Ssh.Username)
+	k.Ssh.UploadFile(localFilePath, remoteDirPath)
 
 	// 执行部署命令
-	result, err := k.ssh.Sudo("kubectl apply -f kafka-manager.yaml -n kafka")
+	result, err := k.Ssh.Sudo("kubectl apply -f kafka-manager.yaml -n kafka")
 	return result, err
 }

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ReplicationController # 副本控制器RC
+metadata:
+  name: mysql # RC的名称，全局唯一
+spec:
+  type: NodePort # 指定可以通过外网访问
+  replicas: 1 # Pod副本的期待数量
+  selector:
+    app: mysql # 符合目标的Pod拥有此标签
+  template: # 根据此模板创建Pod的副本，也就是实例
+    metadata:
+      labels:
+        app: mysql # Pod副本拥有的标签，对应RC的selector
+    spec:
+      containers: # Pod内容器的定义部分
+        - name: mysql
+          image: mysql
+          ports:
+            - containerPort: 3306 # 容器监听的端口号
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "root" # 自定义MySQL的root用户密码

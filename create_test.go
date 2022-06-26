@@ -2,21 +2,20 @@ package zdpgo_k8s
 
 import (
 	"fmt"
+	"github.com/zhangdapeng520/zdpgo_log"
+	"github.com/zhangdapeng520/zdpgo_ssh"
 	"testing"
 )
 
 func testCreateK8s() *K8S {
-	config := K8SConfig{
-		Host:        "192.168.33.10",
-		Port:        22,
-		Username:    "zhangdapeng",
-		Password:    "zhangdapeng",
-		LogFilePath: "",
-		Debug:       true,
-	}
-	k := New(config)
+	k := NewWithConfig(&Config{Ssh: &zdpgo_ssh.Config{
+		Host:     "192.168.33.10",
+		Port:     22,
+		Username: "zhangdapeng",
+		Password: "zhangdapeng",
+	}}, zdpgo_log.Tmp)
 	if k != nil {
-		k.log.Info("链接服务器成功。")
+		k.Log.Info("链接服务器成功。")
 	}
 	return k
 }
@@ -24,7 +23,12 @@ func testCreateK8s() *K8S {
 // CreateRC 创建RC
 // @param fileName 配置文件的名称
 func TestCreateRC(t *testing.T) {
-	k := testCreateK8s()
+	k := NewWithConfig(&Config{Ssh: &zdpgo_ssh.Config{
+		Host:     "192.168.33.10",
+		Port:     22,
+		Username: "zhangdapeng",
+		Password: "zhangdapeng",
+	}}, zdpgo_log.Tmp)
 	result, err := k.CreateRC("mysql-rc.yaml")
 	fmt.Println(result, err)
 }
